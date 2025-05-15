@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Download the file
+curl -s https://www.amfiindia.com/spages/NAVAll.txt -o NAVAll.txt
+
+# Extract header and valid rows, and get Scheme Name and NAV (columns 4 and 5)
+awk -F'|' 'NF == 6 && $1 ~ /^[0-9]+$/ { print $4 "\t" $5 }' NAVAll.txt > nav_data.tsv
+
+echo "Saved Scheme Name and NAV to nav_data.tsv"
